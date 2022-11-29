@@ -48,6 +48,9 @@ function loop() {
   requestAnimationFrame(loop);
   context.clearRect(0,0,canvas.width,canvas.height);
  
+  // draw bird
+  context.fillStyle = 'black';
+  context.fillRect(bird.x, bird.y, bird.width, bird.height);
 }
 
 // start the game
