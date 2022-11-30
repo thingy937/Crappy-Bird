@@ -1,106 +1,68 @@
 <html>
 <head>
-  <title></title>
-  <style>
-  html, body {
-    height: 100%;
-    margin: 0;
-  }
-
-  body {
-    background: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  canvas {
-    border: 10px solid black;
-  }
-  </style>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<style>
+canvas {
+    border:1px solid #d3d3d3;
+    background-color: #f1f1f1;
+}
+</style>
 </head>
-<body>
-<p align="center">
-<canvas width="400" height="400" id="game"></canvas>
-</p>
+<body onload="startGame()">
 <script>
-const canvas = document.getElementById('game');
-const context = canvas.getContext('2d');
-const grid = 15;
-const birdHeight = grid * 5; // 80
-const maxbirdY = canvas.height - grid - birdHeight;
 
-var birdSpeed = 6;
+var myGamePiece;
 
-const bird = {
-  // start in the middle of the game on the left side
-  x: grid * 2,
-  y: canvas.height / 2 - birdHeight / 2,
-  width: grid,
-  height: birdHeight,
-
-  // paddle velocity
-  dy: 0
-};
-
-// check for collision between two objects using axis-aligned bounding box (AABB)
-// @see https://developer.mozilla.org/en-US/docs/Games/Techniques/2D_collision_detection
-function collides(obj1, obj2) {
-  return obj1.x < obj2.x + obj2.width &&
-         obj1.x + obj1.width > obj2.x &&
-         obj1.y < obj2.y + obj2.height &&
-         obj1.y + obj1.height > obj2.y;
+function startGame() {
+    myGamePiece = new component(30, 30, "black", 80, 75);
+    myGameArea.start();
 }
 
-// game loop
-function loop() {
-  requestAnimationFrame(loop);
-  context.clearRect(0,0,canvas.width,canvas.height);
-
-  // move bird by their velocity
-  bird.y += birdPaddle.dy;
-
-  // prevent bird from going through walls
-  if (bird.y < grid) {
-    bird.y = grid;
-  }
-  else if (bird.y > maxBirdY) {
-    bird.y = maxBirdY;
-  }
-
-
-  // draw bird
-  context.fillStyle = 'black';
-  context.fillRect(bird.x, bird.y, bird.width, bird.height);
-
+var myGameArea = {
+    canvas : document.createElement("canvas"),
+    start : function() {
+        this.canvas.width = 400;
+        this.canvas.height = 400;
+        this.context = this.canvas.getContext("2d");
+        document.body.insertBefore(this.canvas, document.body.childNodes[0]);
+        this.interval = setInterval(updateGameArea, 20);        
+    },
+    stop : function() {
+        clearInterval(this.interval);
+    },    
+    clear : function() {
+        this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    }
 }
 
-// listen to keyboard events to move the paddles
-document.addEventListener('keydown', function(e) {
+function component(width, height, color, x, y, type) {
+    this.type = type;
+    this.width = width;
+    this.height = height;
+    this.x = x;
+    this.y = y;    
+    this.speedX = 0;
+    this.speedY = 0;    
+    this.gravity = 0.05;
+    this.gravitySpeed = 0;
+    this.update = function() {
+        ctx = myGameArea.context;
+        ctx.fillStyle = color;
+        ctx.fillRect(this.x, this.y, this.width, this.height);
+    }
+    this.newPos = function() {
+        this.gravitySpeed += this.gravity;
+        this.x += this.speedX;
+        this.y += this.speedY + this.gravitySpeed;        
+    }
+}
 
+function updateGameArea() {
+    myGameArea.clear();
+    myGamePiece.newPos();
+    myGamePiece.update();
+}
 
-  // w key
-  if (e.which === 87) {
-    bird.dy = -birdSpeed;
-  }
-  // a key
-  else if (e.which === 83) {
-    bird.dy = birdSpeed;
-  }
-});
-
-// listen to keyboard events to stop the bird if key is released
-document.addEventListener('keyup', function(e) {
-
-  if (e.which === 83 || e.which === 87) {
-    bird.dy = 0;
-  }
-});
-
-// start the game
-requestAnimationFrame(loop);
 </script>
 </body>
-<p align="center">
-<button onclick="location.href='https://thingy937.github.io/'"><img src="https://raw.githubusercontent.com/thingy937/Snake-game-/master/home_circle_icon_137496.png" width="50" height="50"></button>
-</p>
 </html>
