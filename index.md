@@ -1,7 +1,12 @@
+<!DOCTYPE html>
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <style>
+canvas {
+    border:10px solid #000000;
+    background-color: #ffffff;
+}
 </style>
 </head>
 <body onload="startGame()">
@@ -9,9 +14,15 @@
 
 var myGamePiece;
 
+function startGame() {
+    myGamePiece = new component(30, 30, "black", 30, 30);
+    myGameArea.start();
+}
+
 var myGameArea = {
     canvas : document.createElement("canvas"),
     start : function() {
+        this.canvas.align = "center"
         this.canvas.width = 400;
         this.canvas.height = 400;
         this.context = this.canvas.getContext("2d");
@@ -24,11 +35,6 @@ var myGameArea = {
     clear : function() {
         this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
     }
-}
-
-function startGame() {
-    myGamePiece = new component(30, 30, "black", 80, 75);
-    myGameArea.start();
 }
 
 function component(width, height, color, x, y, type) {
@@ -49,7 +55,15 @@ function component(width, height, color, x, y, type) {
     this.newPos = function() {
         this.gravitySpeed += this.gravity;
         this.x += this.speedX;
-        this.y += this.speedY + this.gravitySpeed;        
+        this.y += this.speedY + this.gravitySpeed;
+        this.hitBottom();
+    }
+    this.hitBottom = function() {
+        var rockbottom = myGameArea.canvas.height - this.height;
+        if (this.y > rockbottom) {
+            this.y = rockbottom;
+            this.gravitySpeed = 0;
+        }
     }
 }
 
@@ -59,6 +73,17 @@ function updateGameArea() {
     myGamePiece.update();
 }
 
+function accelerate(n) {
+    myGamePiece.gravity = n;
+}
 </script>
+
+<p align="center">
+<br>
+<button onmousedown="accelerate(-0.2)" onmouseup="accelerate(0.1)">Jump</button>
+
+<p align="center">
+<button onclick="location.href='https://thingy937.github.io/'"><img src="https://raw.githubusercontent.com/thingy937/Snake-game-/master/home_circle_icon_137496.png" width="50" height="50"></button>
+
 </body>
 </html>
