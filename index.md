@@ -13,6 +13,9 @@
     align-items: center;
     justify-content: center;
   }
+  canvas {
+    border: 10px solid black;
+  }
   </style>
 </head>
 <body>
@@ -24,7 +27,7 @@ const canvas = document.getElementById('game');
 const context = canvas.getContext('2d');
 const grid = 15;
 const birdHeight = grid * 5; // 80
-const maxPaddleY = canvas.height - grid - birdHeight;
+const maxbirdY = canvas.height - grid - birdHeight;
 
 var birdSpeed = 6;
 
@@ -57,8 +60,8 @@ function loop() {
   bird.y += birdPaddle.dy;
 
   // prevent bird from going through walls
-  if (leftPaddle.y < grid) {
-    leftPaddle.y = grid;
+  if (bird.y < grid) {
+    bird.y = grid;
   }
   else if (bird.y > maxBirdY) {
     bird.y = maxBirdY;
@@ -69,15 +72,6 @@ function loop() {
   context.fillStyle = 'black';
   context.fillRect(bird.x, bird.y, bird.width, bird.height);
 
-  // draw walls
-  context.fillStyle = 'black';
-  context.fillRect(0, 0, canvas.width, grid);
-  context.fillRect(0, canvas.height - grid, canvas.width, canvas.height);
-
-  // draw dotted line down the middle
-  for (let i = grid; i < canvas.height - grid; i += grid * 2) {
-    context.fillRect(canvas.width / 2 - grid / 2, i, grid, grid);
-  }
 }
 
 // listen to keyboard events to move the paddles
