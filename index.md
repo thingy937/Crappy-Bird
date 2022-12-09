@@ -13,7 +13,7 @@
 <div class="" style="width:100;height:100;background-color:#03b1fc;background-image:linear-gradient(#03b1fc, #0339fc);">
 <p>&nbsp;</p>
 <p align="center">
-<canvas width="400" height="400" id="game"></canvas>
+<canvas width="500" height="400" id="game"></canvas>
 </p>
 
 <script>
