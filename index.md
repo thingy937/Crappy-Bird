@@ -1,85 +1,25 @@
 <html>
-<head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <style>
-canvas {
-    border:10px solid #000000;
-    background-color: #ffffff;
-}
+    body {
+    background: #36393f;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  canvas {
+    border: 8px solid black;
+  }
 </style>
 </head>
-<body onload="startGame()">
-<script>
-
-var myGamePiece;
-
-function startGame() {
-    myGamePiece = new component(30, 30, "black", 30, 30);
-    myGameArea.start();
-}
-
-var myGameArea = {
-    canvas : document.createElement("canvas"),
-    start : function() {
-        this.canvas.align = "center"
-        this.canvas.width = 400;
-        this.canvas.height = 400;
-        this.context = this.canvas.getContext("2d");
-        document.body.insertBefore(this.canvas, document.body.childNodes[0]);
-        this.interval = setInterval(updateGameArea, 20);        
-    },
-    stop : function() {
-        clearInterval(this.interval);
-    },    
-    clear : function() {
-        this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    }
-}
-
-function component(width, height, color, x, y, type) {
-    this.type = type;
-    this.width = width;
-    this.height = height;
-    this.x = x;
-    this.y = y;    
-    this.speedX = 0;
-    this.speedY = 0;    
-    this.gravity = 0.05;
-    this.gravitySpeed = 0;
-    this.update = function() {
-        ctx = myGameArea.context;
-        ctx.fillStyle = color;
-        ctx.fillRect(this.x, this.y, this.width, this.height);
-    }
-    this.newPos = function() {
-        this.gravitySpeed += this.gravity;
-        this.x += this.speedX;
-        this.y += this.speedY + this.gravitySpeed;
-        this.hitBottom();
-    }
-    this.hitBottom = function() {
-        var rockbottom = myGameArea.canvas.height - this.height;
-        if (this.y > rockbottom) {
-            this.y = rockbottom;
-            this.gravitySpeed = 0;
-        }
-    }
-}
-
-function updateGameArea() {
-    myGameArea.clear();
-    myGamePiece.newPos();
-    myGamePiece.update();
-}
-
-function accelerate(n) {
-    myGamePiece.gravity = n;
-}
-</script>
-
+<div class="" style="width:100;height:100;background-color:#03b1fc;background-image:linear-gradient(#03b1fc, #0339fc);">
+<p>&nbsp;</p>
 <p align="center">
-<br>
-<button onmousedown="accelerate(-0.2)" onmouseup="accelerate(0.1)">Jump</button>
-
+<canvas width="400" height="400" id="game"></canvas>
+</p>
+    
+    
 <p align="center">
-<button onclick="location.href='https://thingy937.github.io/'"><img src="https://raw.githubusercontent.com/thingy937/Snake-game-/master/home_circle_icon_137496.png" width="50" height="50"></button>
+<button style="background-color:#0339fc" onclick="location.href='https://thingy937.github.io/'"><img src="https://raw.githubusercontent.com/thingy937/Snake-game-/master/home_circle_icon_137496.png" width="50" height="50"></button>
+</p>
+<p>&nbsp;</p>
+</div>
