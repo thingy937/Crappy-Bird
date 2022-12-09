@@ -10,7 +10,6 @@
     border: 8px solid black;
   }
 </style>
-</head>
 <div class="" style="width:100;height:100;background-color:#03b1fc;background-image:linear-gradient(#03b1fc, #0339fc);">
 <p>&nbsp;</p>
 <p align="center">
