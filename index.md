@@ -15,8 +15,15 @@
 <p align="center">
 <canvas width="400" height="400" id="game"></canvas>
 </p>
-    
-    
+
+<script>
+var c = document.getElementById("game");
+var ctx = c.getContext("2d");
+ctx.beginPath();
+ctx.rect(20, 20, 150, 100);
+ctx.stroke();
+</script> 
+
 <p align="center">
 <button style="background-color:#0339fc" onclick="location.href='https://thingy937.github.io/'"><img src="https://raw.githubusercontent.com/thingy937/Snake-game-/master/home_circle_icon_137496.png" width="50" height="50"></button>
 </p>
