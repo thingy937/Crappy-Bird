@@ -17,9 +17,15 @@
 </p>
 
 <script>
+
+var bird = {
+  x: 30,
+  y: 100
+};
+        
 var c = document.getElementById("game");
 var ctx = c.getContext("2d");
-ctx.fillRect(30, 100, 50, 50);
+ctx.fillRect(bird.x, bird.y, 50, 50);
 </script> 
 
 <p align="center">
