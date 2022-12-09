@@ -22,7 +22,13 @@ var bird = {
   x: 30,
   y: 100
 };
-        
+
+this.addEventListener('keypress', event => {
+  if (event.keyCode == 38) {
+    bird.y = bird.y + 1;
+  }
+})
+
 var c = document.getElementById("game");
 var ctx = c.getContext("2d");
 ctx.fillRect(bird.x, bird.y, 50, 50);
