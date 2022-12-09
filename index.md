@@ -19,7 +19,7 @@
 <script>
 var c = document.getElementById("game");
 var ctx = c.getContext("2d");
-ctx.fillRect(50, 50, 50, 50);
+ctx.fillRect(30, 100, 50, 50);
 </script> 
 
 <p align="center">
