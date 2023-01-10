@@ -2,6 +2,7 @@
 <style>
     body {
     background: #36393f;
+    background-image: url(https://raw.githubusercontent.com/thingy937/thingy937.github.io/master/360_F_279795836_SZU2w1gvtn4586ZfLkC2RtQZeL6wOuIh.jpg);
     display: flex;
     align-items: center;
     justify-content: center;
